@@ -354,7 +354,7 @@ public class DeduplicationJob extends NutchTool implements Tool {
     CrawlDb.install(mergeJob, dbPath);
 
     // clean up
-    FileSystem fs = FileSystem.get(getConf());
+    FileSystem fs = tempDir.getFileSystem(getConf());
     fs.delete(tempDir, true);
 
     long end = System.currentTimeMillis();

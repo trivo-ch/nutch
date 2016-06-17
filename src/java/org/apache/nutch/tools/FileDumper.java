@@ -146,8 +146,8 @@ public class FileDumper {
     // filtered file counts
     Map<String, Integer> filteredCounts = new HashMap<String, Integer>();
     Configuration conf = NutchConfiguration.create();
-    FileSystem fs = FileSystem.get(conf);
     int fileCount = 0;
+
     File[] segmentDirs = segmentRootDir.listFiles(new FileFilter() {
 
       @Override
@@ -203,7 +203,6 @@ public class FileDumper {
               extension = "html";
             }
 
-            String filename = baseName + "." + extension;
             ByteArrayInputStream bas = null;
             Boolean filter = false;
             try {
@@ -294,7 +293,6 @@ public class FileDumper {
           }
           reader.close();
         } finally {
-          fs.close();
           if (doutputStream != null) {
             try {
               doutputStream.close();
