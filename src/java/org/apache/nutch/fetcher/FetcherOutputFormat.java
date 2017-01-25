@@ -46,13 +46,11 @@ public class FetcherOutputFormat implements OutputFormat<Text, NutchWritable> {
 
   public void checkOutputSpecs(FileSystem fs, JobConf job) throws IOException {
     Path out = FileOutputFormat.getOutputPath(job);
+    FileSystem fs2 = out.getFileSystem(job);
     if ((out == null) && (job.getNumReduceTasks() != 0)) {
       throw new InvalidJobConfException("Output directory not set in JobConf.");
     }
-    if (fs == null) {
-      fs = out.getFileSystem(job);
-    }
-    if (fs.exists(new Path(out, CrawlDatum.FETCH_DIR_NAME)))
+    if (fs2.exists(new Path(out, CrawlDatum.FETCH_DIR_NAME)))
       throw new IOException("Segment already fetched!");
   }
 
